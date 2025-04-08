@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Data Fetcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Weather Data Fetcher</h1>
+    <form method="POST">
+        <label for="city">Enter city names (comma-separated):</label>
+        <input type="text" id="city" name="city" required>
+        <button type="submit">Get Weather</button>
+    </form>
+
+    {% if weather_data %}
+    <h2>Weather Data for {{ city_input }}</h2>
+    <table>
+        <tr>
+            <th>City</th>
+            <th>Date</th>
+            <th>Max Temp (°C)</th>
+            <th>Min Temp (°C)</th>
+            <th>Humidity (%)</th>
+            <th>Wind Speed (km/h)</th>
+        </tr>
+        {% for data in weather_data %}
+        <tr>
+            <td>{{ data.city }}</td>
+            <td>{{ data.date }}</td>
+            <td>{{ data.tempmax }}</td>
+            <td>{{ data.tempmin }}</td>
+            <td>{{ data.humidity }}</td>
+            <td>{{ data.windspeed }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p><a href="/static/weather_data.csv" download>Download CSV</a></p>
+    {% endif %}
+
+</body>
+
+</html>
